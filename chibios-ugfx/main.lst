@@ -1,0 +1,100 @@
+   1               		.file	"main.c"
+   2               	__SREG__ = 0x3f
+   3               	__SP_H__ = 0x3e
+   4               	__SP_L__ = 0x3d
+   5               	__CCP__  = 0x34
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+  15               	.Ltext0:
+  16               	.global	main
+  18               	main:
+  19               	.LFB10:
+  20               	.LM1:
+  21 0000 0F93      		push r16
+  22 0002 1F93      		push r17
+  23               	/* prologue: function */
+  24               	/* frame size = 0 */
+  25               	.LM2:
+  26 0004 0E94 0000 		call halInit
+  27               	.LM3:
+  28 0008 0E94 0000 		call chSysInit
+  29               	.LM4:
+  30               	/* #APP */
+  31               	 ;  49 "main.c" 1
+  32 000c 2F98      		cbi 5,7
+  33               		
+  34               	 ;  0 "" 2
+  35               	.LM5:
+  36               	/* #NOAPP */
+  37 000e 80E0      		ldi r24,lo8(SD1)
+  38 0010 90E0      		ldi r25,hi8(SD1)
+  39 0012 60E0      		ldi r22,lo8(0)
+  40 0014 70E0      		ldi r23,hi8(0)
+  41 0016 0E94 0000 		call sdStart
+  42               	.LM6:
+  43 001a 80E0      		ldi r24,lo8(waThread1)
+  44 001c 90E0      		ldi r25,hi8(waThread1)
+  45 001e 68E8      		ldi r22,lo8(136)
+  46 0020 70E0      		ldi r23,hi8(136)
+  47 0022 40E4      		ldi r20,lo8(64)
+  48 0024 20E0      		ldi r18,lo8(gs(Thread1))
+  49 0026 30E0      		ldi r19,hi8(gs(Thread1))
+  50 0028 00E0      		ldi r16,lo8(0)
+  51 002a 10E0      		ldi r17,hi8(0)
+  52 002c 0E94 0000 		call chThdCreateStatic
+  53               	.LM7:
+  54 0030 80E0      		ldi r24,lo8(SD1)
+  55 0032 90E0      		ldi r25,hi8(SD1)
+  56 0034 0E94 0000 		call TestThread
+  57               	.L2:
+  58               	.LM8:
+  59 0038 88EE      		ldi r24,lo8(1000)
+  60 003a 93E0      		ldi r25,hi8(1000)
+  61 003c 0E94 0000 		call chThdSleep
+  62 0040 00C0      		rjmp .L2
+  63               	.LFE10:
+  66               	Thread1:
+  67               	.LFB9:
+  68               	.LM9:
+  69               	.LVL0:
+  70 0042 CF93      		push r28
+  71 0044 DF93      		push r29
+  72               	/* prologue: function */
+  73               	/* frame size = 0 */
+  74               	.LM10:
+  75 0046 C3E2      		ldi r28,lo8(35)
+  76 0048 D0E0      		ldi r29,hi8(35)
+  77               	.L6:
+  78 004a 85B1      		in r24,37-32
+  79               	.LVL1:
+  80 004c 8058      		subi r24,lo8(-(-128))
+  81 004e 8A83      		std Y+2,r24
+  82               	.LM11:
+  83 0050 88EE      		ldi r24,lo8(1000)
+  84 0052 93E0      		ldi r25,hi8(1000)
+  85 0054 0E94 0000 		call chThdSleep
+  86 0058 00C0      		rjmp .L6
+  87               	.LFE9:
+  89               		.lcomm waThread1,136
+ 122               	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:00000000 main.c
+C:\Users\BHDMinh\AppData\Local\Temp/cc5xlMcO.s:2      *ABS*:0000003f __SREG__
+C:\Users\BHDMinh\AppData\Local\Temp/cc5xlMcO.s:3      *ABS*:0000003e __SP_H__
+C:\Users\BHDMinh\AppData\Local\Temp/cc5xlMcO.s:4      *ABS*:0000003d __SP_L__
+C:\Users\BHDMinh\AppData\Local\Temp/cc5xlMcO.s:5      *ABS*:00000034 __CCP__
+C:\Users\BHDMinh\AppData\Local\Temp/cc5xlMcO.s:6      *ABS*:00000000 __tmp_reg__
+C:\Users\BHDMinh\AppData\Local\Temp/cc5xlMcO.s:7      *ABS*:00000001 __zero_reg__
+C:\Users\BHDMinh\AppData\Local\Temp/cc5xlMcO.s:18     .text:00000000 main
+                             .bss:00000000 waThread1
+C:\Users\BHDMinh\AppData\Local\Temp/cc5xlMcO.s:66     .text:00000042 Thread1
+
+UNDEFINED SYMBOLS
+halInit
+chSysInit
+SD1
+sdStart
+chThdCreateStatic
+TestThread
+chThdSleep
+__do_clear_bss

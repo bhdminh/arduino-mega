@@ -1,0 +1,58 @@
+# Possible Targets:	all clean Debug cleanDebug Release cleanRelease
+
+##############################################################################################
+# Settings
+#
+
+# General settings
+	# See $(GFXLIB)/tools/gmake_scripts/readme.txt for the list of variables
+	OPT_OS					= chibios
+	OPT_THUMB				= 
+	OPT_LINK_OPTIMIZE		= 
+	OPT_CPU					= m2560
+	OPT_VERBOSE_COMPILE		= yes
+	OPT_COPY_EXE			= yes
+
+# uGFX settings
+	# See $(GFXLIB)/tools/gmake_scripts/library_ugfx.mk for the list of variables
+	GFXLIB					= ../../uGFX
+	GFXBOARD				= ARDUINO-MEGA2560
+	GFXDEMO					= 
+#modules/gdisp/basics
+# ChibiOS settings
+ifeq ($(OPT_OS),chibios)
+	# See $(GFXLIB)/tools/gmake_scripts/os_chibios.mk for the list of variables
+	CHIBIOS				= ../../ChibiOS_2.6.8
+	CHIBIOS_BOARD		= ARDUINO_MEGA
+	CHIBIOS_PLATFORM	= AVR
+	CHIBIOS_PORT		= GCC/AVR
+	CHIBIOS_LDSCRIPT	= 
+endif
+
+##############################################################################################
+# Set these for your project
+#
+
+ARCH     = avr-
+SRCFLAGS = -ggdb -O0
+CFLAGS   =
+CXXFLAGS = -fno-rtti
+ASFLAGS  =
+LDFLAGS  =
+
+SRC      = 
+OBJS     =
+DEFS     =
+LIBS     =
+INCPATH  = 
+LIBPATH  =
+LDSCRIPT = 
+
+##############################################################################################
+# These should be at the end
+#
+
+include $(GFXLIB)/tools/gmake_scripts/library_ugfx.mk
+include $(GFXLIB)/tools/gmake_scripts/os_$(OPT_OS).mk
+include $(GFXLIB)/tools/gmake_scripts/compiler_gcc.mk
+# *** EOF ***
